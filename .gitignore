@@ -1,0 +1,8 @@
+
+# Test framework
+cpp/googletest
+
+# compiled files
+*.o
+*.a
+*/bin
