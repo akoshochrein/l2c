@@ -5,8 +5,9 @@ cd $PROBLEM_NAME
 
 # Create source files
 mkdir src
-touch main.h
-ehco '''
+touch solution.h
+touch solution.cpp
+echo '''
 #include <iostream>
 
 #include "main.h"
@@ -22,7 +23,7 @@ int main () {
 mkdir test
 echo '''
 #include <limits.h>
-#include "../src/main.h"
+#include "../src/solution.h"
 #include "gtest/gtest.h"
 
 // TEST(HasOnlyUniqueTest, TrueText) {
@@ -51,10 +52,13 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 all : main
 
+sol: main
+
 test: $(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
+    rm -rf $(USER_BIN_DIR)/*
 
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
@@ -72,15 +76,16 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
-# Main Test
+main :
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(USER_SRC_DIR)/main.cpp $(USER_SRC_DIR)/solution.cpp -o $(USER_BIN_DIR)/$@
 
-main.o : $(USER_SRC_DIR)/main.cpp $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_SRC_DIR)/main.cpp
+solution.o : $(USER_SRC_DIR)/solution.cpp $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_SRC_DIR)/solution.cpp
 
-main_unittest.o : $(USER_TEST_DIR)/main_unittest.cpp \
-                     $(USER_SRC_DIR)/main.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_TEST_DIR)/main_unittest.cpp
+solution_unittest.o : $(USER_TEST_DIR)/solution_unittest.cpp \
+                     $(USER_SRC_DIR)/solution.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_TEST_DIR)/solution_unittest.cpp
 
-main_unittest : main.o main_unittest.o gtest_main.a
+solution_unittest : main.o solution_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $(USER_BIN_DIR)/$@
 ''' >> Makefile
