@@ -1,6 +1,6 @@
 
 #include <limits.h>
-#include "../src/main-better.h"
+#include "../src/solution.h"
 #include "gtest/gtest.h"
 
 TEST(HasOnlyUniqueTest, TrueText) {

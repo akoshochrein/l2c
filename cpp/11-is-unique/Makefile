@@ -11,6 +11,7 @@
 # Please tweak the following variable definitions as needed by your
 # project, except GTEST_HEADERS, which you can use in your own targets
 # but shouldn't modify.
+CXX = c++
 
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
@@ -31,7 +32,7 @@ CXXFLAGS += -g -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = main-better_unittest
+TESTS = solution_unittest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -40,12 +41,15 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-all : main-better
+all : main
+
+sol: main
 
 test: $(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
+	rm -rf $(USER_BIN_DIR)/*
 
 # Builds gtest.a and gtest_main.a.
 
@@ -73,12 +77,15 @@ gtest_main.a : gtest-all.o gtest_main.o
 
 # Main Test
 
-main-better.o : $(USER_SRC_DIR)/main-better.cpp $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_SRC_DIR)/main-better.cpp
+main :
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(USER_SRC_DIR)/main.cpp $(USER_SRC_DIR)/solution.cpp -o $(USER_BIN_DIR)/$@
 
-main-better_unittest.o : $(USER_TEST_DIR)/main-better_unittest.cpp \
-                     $(USER_SRC_DIR)/main-better.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_TEST_DIR)/main-better_unittest.cpp
+solution.o : $(USER_SRC_DIR)/solution.cpp $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_SRC_DIR)/solution.cpp
 
-main-better_unittest : main-better.o main-better_unittest.o gtest_main.a
+solution_unittest.o : $(USER_TEST_DIR)/solution_unittest.cpp \
+                     $(USER_SRC_DIR)/solution.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_TEST_DIR)/solution_unittest.cpp
+
+solution_unittest : solution.o solution_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $(USER_BIN_DIR)/$@
