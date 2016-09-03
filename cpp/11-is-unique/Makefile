@@ -18,6 +18,7 @@ all : main
 sol: main
 
 test: $(TESTS)
+	./bin/$(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
