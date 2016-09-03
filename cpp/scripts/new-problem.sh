@@ -29,7 +29,7 @@ echo '''
 // TEST(HasOnlyUniqueTest, TrueText) {
 //     EXPECT_TRUE(HasOnlyUnique("asd"));
 // }
-''' >> test/main_unittest.cpp
+''' >> test/solution_unittest.cpp
 
 # Create bin
 mkdir bin
@@ -55,11 +55,11 @@ all : main
 sol: main
 
 test: $(TESTS)
-    ./bin/$(TESTS)
+	./bin/$(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
-    rm -rf $(USER_BIN_DIR)/*
+	rm -rf $(USER_BIN_DIR)/*
 
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
@@ -87,6 +87,6 @@ solution_unittest.o : $(USER_TEST_DIR)/solution_unittest.cpp \
                      $(USER_SRC_DIR)/solution.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_TEST_DIR)/solution_unittest.cpp
 
-solution_unittest : main.o solution_unittest.o gtest_main.a
+solution_unittest : solution.o solution_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $(USER_BIN_DIR)/$@
 ''' >> Makefile
