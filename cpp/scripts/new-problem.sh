@@ -5,19 +5,19 @@ cd $PROBLEM_NAME
 
 # Create source files
 mkdir src
-touch solution.h
-touch solution.cpp
+touch src/solution.h
+touch src/solution.cpp
 echo '''
 #include <iostream>
 
-#include "main.h"
+#include "solution.h"
 
 using namespace std;
 
 int main () {
     return 0;
 }
-''' >> main.cpp
+''' >> src/main.cpp
 
 # Create test files
 mkdir test
@@ -29,7 +29,7 @@ echo '''
 // TEST(HasOnlyUniqueTest, TrueText) {
 //     EXPECT_TRUE(HasOnlyUnique("asd"));
 // }
-''' >> main_unittest.cpp
+''' >> test/main_unittest.cpp
 
 # Create bin
 mkdir bin
