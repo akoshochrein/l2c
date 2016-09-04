@@ -6,7 +6,11 @@ cd $PROBLEM_NAME
 # Create source files
 mkdir src
 touch src/solution.h
-touch src/solution.cpp
+
+echo '''
+#include "solution.h"
+''' >> src/solution.cpp
+
 echo '''
 #include <iostream>
 
@@ -45,7 +49,7 @@ USER_BIN_DIR = bin
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 CXXFLAGS += -g -Wall -Wextra -pthread
 
-TESTS = main_unittest
+TESTS = solution_unittest
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
