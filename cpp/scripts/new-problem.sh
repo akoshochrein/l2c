@@ -46,7 +46,7 @@ USER_SRC_DIR = src
 USER_TEST_DIR = test
 USER_BIN_DIR = bin
 
-CPPFLAGS += -isystem $(GTEST_DIR)/include
+CPPFLAGS += -isystem $(GTEST_DIR)/include -std=c++11
 CXXFLAGS += -g -Wall -Wextra -pthread
 
 TESTS = solution_unittest
