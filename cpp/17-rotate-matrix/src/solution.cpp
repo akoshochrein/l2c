@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include "solution.h"
 
 std::vector<std::vector<int> > RotateMatrix(std::vector<std::vector<int> > m) {
@@ -11,8 +10,6 @@ std::vector<std::vector<int> > RotateMatrix(std::vector<std::vector<int> > m) {
             m[n][N-n-k] = m[N-n-k][N-n];
             m[N-n-k][N-n] = m[N-n][k+n];
             m[N-n][k+n] = temp;
-
-            std::cout << m[k][n] << " " << m[n][N-n-k] << " " << m[N-n-k][N-n] << " " << m[N-n][k+n] << std::endl;
         }
     }
     return m;
