@@ -6,3 +6,6 @@ cpp/googletest
 *.o
 *.a
 */bin/
+
+# Python
+*.pyc
