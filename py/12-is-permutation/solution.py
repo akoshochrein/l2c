@@ -18,3 +18,7 @@ def is_permutation(s1, s2):
 
 def is_permutation_with_sort(s1, s2):
 	return sorted(s1) == sorted(s2) if len(s1) == len(s2) else False
+
+
+def is_permutation_with_counters(s1, s2):
+	return Counter(s1) == Counter(s2) if len(s1) == len(s2) else False
