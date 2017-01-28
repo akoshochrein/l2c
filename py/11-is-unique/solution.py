@@ -1,3 +1,5 @@
+from collections import Counter
+
 
 def is_unique(s):
 	char_set = set()
@@ -7,3 +9,7 @@ def is_unique(s):
 		else:
 			char_set.add(c)
 	return True
+
+
+def is_unique_counter(s):
+	return all(v == 1 for v in Counter(s).values())
